@@ -1,40 +1,71 @@
-// Theme Switcher
-const themeSwitcher = document.getElementById('theme-switcher');
-const body = document.body;
+document.addEventListener('DOMContentLoaded', () => {
+    const mainMenu = document.getElementById('main-menu');
+    const optionsMenu = document.getElementById('options-menu');
+    const startButton = document.getElementById('start-button');
+    const optionsButton = document.getElementById('options-button');
+    const quitButton = document.getElementById('quit-button');
+    const backButton = document.getElementById('back-button');
+    const resolutionButton = document.getElementById('resolution-button');
+    const musicSlider = document.getElementById('music-slider');
+    const sfxSlider = document.getElementById('sfx-slider');
+    const musicVolume = document.getElementById('music-volume');
+    const sfxVolume = document.getElementById('sfx-volume');
 
-themeSwitcher.addEventListener('click', () => {
-  body.classList.toggle('dark-theme');
-  if (body.classList.contains('dark-theme')) {
-    themeSwitcher.textContent = '☀️'; // Sun icon for light mode
-  } else {
-    themeSwitcher.textContent = '🌙'; // Moon icon for dark mode
-  }
-});
+    let currentState = 'main-menu';
 
-// Function to play sound effects
-function playSound(soundId) {
-  const sound = document.getElementById(soundId);
-  sound.currentTime = 0; // Reset the sound to the beginning
-  sound.play();
-}
-const progressBar = document.querySelector('.progress-bar');
+    const resolutions = [
+        { width: 800, height: 600 },
+        { width: 1024, height: 768 },
+        { width: 1280, height: 720 },
+        { width: 1920, height: 1080 }
+    ];
+    let currentResolutionIndex = 0;
 
-// Function to update the progress bar
-function updateProgressBar(currentQuestionIndex, totalQuestions) {
-  const progressPercentage = ((currentQuestionIndex + 1) / totalQuestions) * 100;
-  progressBar.style.width = `${progressPercentage}%`;
-}
+    function showScreen(screen) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(screen).classList.add('active');
+    }
 
-// Example usage in your quiz
-const totalQuestions = questions.length;
-let currentQuestionIndex = 0;
+    startButton.addEventListener('click', () => {
+        alert('Starting the game...');
+    });
 
-// Update progress bar when moving to the next question
-nextBtn.addEventListener('click', () => {
-  currentQuestionIndex++;
-  if (currentQuestionIndex < totalQuestions) {
-    updateProgressBar(currentQuestionIndex, totalQuestions);
-  }
+    optionsButton.addEventListener('click', () => {
+        currentState = 'options';
+        showScreen('options-menu');
+    });
+
+    quitButton.addEventListener('click', () => {
+        alert('Quitting the game...');
+        window.close();
+    });
+
+    backButton.addEventListener('click', () => {
+        currentState = 'main-menu';
+        showScreen('main-menu');
+    });
+
+    resolutionButton.addEventListener('click', () => {
+        currentResolutionIndex = (currentResolutionIndex + 1) % resolutions.length;
+        const { width, height } = resolutions[currentResolutionIndex];
+        resolutionButton.textContent = `Resolution: ${width}x${height}`;
+        alert(`Resolution changed to ${width}x${height}`);
+    });
+
+    musicSlider.addEventListener('input', () => {
+        const volume = musicSlider.value;
+        musicVolume.textContent = `${volume}%`;
+        // Update music volume logic here
+    });
+
+    sfxSlider.addEventListener('input', () => {
+        const volume = sfxSlider.value;
+        sfxVolume.textContent = `${volume}%`;
+        // Update SFX volume logic here
+    });
+
+    showScreen('main-menu');
+});  }
 });
 
 // Initialize progress bar on quiz start
