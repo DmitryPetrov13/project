@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz with Progress Bar</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Progress Bar -->
+  <div class="progress-bar-container">
+    <div class="progress-bar"></div>
+  </div>
+
+  <!-- Quiz Content -->
+  <div id="start-page" class="page active">
+    <h1 id="greeting"></h1>
+    <h1>Приветствуем вас!</h1>
+    <input type="text" id="name" placeholder="Введите ваше имя" required>
+    <button id="start-btn">Начать опрос</button>
+  </div>
+
+  <!-- Quiz Page -->
+  <div id="quiz-page" class="page hidden">
+    <h2 id="question"></h2>
+    <div id="options"></div>
+    <button id="next-btn" class="hidden">Далее</button>
+  </div>
+
+  <!-- End Page -->
+  <div id="end-page" class="page hidden">
+    <h1>Опрос окончен!</h1>
+    <p id="score-message"></p>
+    <button id="restart-btn">Попробовать снова</button>
+  </div>
+  <!-- Audio elements for sound effects -->
+  <audio id="button-click-sound" src="button-click.mp3"></audio>
+  <audio id="correct-answer-sound" src="correct-answer.mp3"></audio>
+  <audio id="wrong-answer-sound" src="wrong-answer.mp3"></audio>
+
+  <!-- Include canvas-confetti library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
